@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy
 from . import views
 
 urlpatterns = [
@@ -22,3 +23,6 @@ urlpatterns = [
     #url(r'^form1/', include('form1.urls')),
     url(r'^', admin.site.urls, name='index'),
 ]
+admin.site.site_header = 'CrimeMap | Gurgaon Police'
+admin.site.site_title =  'Crime Map | Gurgaon Police'
+admin.site.index_title =  'Crime Map | Gurgaon Police'

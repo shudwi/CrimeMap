@@ -19,6 +19,6 @@ class Crime(models.Model):
             ('ms','Miscellaneous'),
             )
     type_of_crime = models.CharField('Type Of Crime',max_length=20,choices=type_of_crime_choice,default='t1')
-    position = GeopositionField('Location of Crime',default='28.4594965,77.0266383')
+    position = GeopositionField('Location of Crime',default='28.4551918808319,77.02973962457577')
     dec = models.TextField('Description',max_length=500)
 
