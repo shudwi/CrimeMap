@@ -1,2 +1,2 @@
 # CrimeMap
-CrimeMap is the project for Gurgaon Police to map crime happend in Gurgaon, Hariana, India.
+CrimeMap is the project for Gurgaon Police to map crime happend in Gurgaon, Haryana, India.
