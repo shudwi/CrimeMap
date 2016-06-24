@@ -47,7 +47,7 @@ Crime Mapping Application | Gurugram Police
     ];
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom:12,
+      zoom:15,
       center: new google.maps.LatLng(28.4551918808319,77.02973962457577),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
