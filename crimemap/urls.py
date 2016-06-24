@@ -15,14 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy
+from django.utils.html import format_html
 from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    #url(r'^form1/', include('form1.urls')),
-    url(r'^', admin.site.urls, name='index'),
+    url(r'^', include('home.urls')),
+    url(r'^map', include('map.urls')),
+    #url(r'^', admin.site.urls, name='index'),
 ]
-admin.site.site_header = 'CrimeMap | Gurgaon Police'
-admin.site.site_title =  'Crime Map | Gurgaon Police'
-admin.site.index_title =  'Crime Map | Gurgaon Police'
+admin.site.site_header = format_html("<a href='/'><img src=/static/admin/img/logo.png /></a>")
+admin.site.site_title =  'Crime Map | Gurugram Police'
+admin.site.index_title =  'Crime Map | Gurugram Police'

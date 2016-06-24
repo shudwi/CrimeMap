@@ -30,7 +30,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 PROJECT_APPS = [
-        'crimemap'
+        'crimemap',
+	'map',
+	'home',
         ]
 INSTALLED_APPS = [
     'django.contrib.admin',
