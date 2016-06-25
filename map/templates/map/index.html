@@ -39,18 +39,27 @@ Crime Mapping Application | Gurugram Police
     var locations = [
       {% if position %}
     {% for lat in position %}
-    ['<b>Case No:</b> {{lat.case_number}}<br /><b>Date:</b> {{lat.crime_date}}<br/ ><b>Type:</b> {{lat.type_of_crime}}', {{ lat.position }},  {{lat.case_number}}],
+    
+    
+    ['<b>Case No:</b> {{lat.case_number}}<br /><b>Date:</b> {{lat.crime_date}}<br/ ><b>Type:</b> {{lat.type_of_crime}}', {{ lat.position }},  {{lat.case_number}},'{{lat.type_of_crime}}.png'],
     {% endfor %}
 {% else %}
-    [28.4551918808319,77.02973962457577],
+    ['No record',28.4551918808319,77.02973962457577,0],
 {% endif %}
     ];
+    var iconBase = '/static/map/';
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom:15,
+<<<<<<< HEAD
+      zoom: 10,
+=======
+      zoom:12,
+>>>>>>> 492e4369d5ba8f6073c882b6cfd81be28ddcd537
       center: new google.maps.LatLng(28.4551918808319,77.02973962457577),
+      icon : iconBase + 'bomb.png',
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+
 
     var infowindow = new google.maps.InfoWindow();
 
@@ -59,7 +68,8 @@ Crime Mapping Application | Gurugram Police
     for (i = 0; i < locations.length; i++) { 
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        map: map
+        map: map,
+        icon: iconBase + locations[i][4]
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
