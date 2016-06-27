@@ -35,6 +35,33 @@ Crime Mapping Application | Gurugram Police
                 <div class="col-md-12 yomer-text-center">
   <div id="map" style="height: 500px; width: 100%;">
 </div>
+                <table>
+                <tr><td><table>
+ <tr><th>&nbsp;&nbsp;&nbsp;Symbol&nbsp;&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type Of Crime</th> </tr>
+ <tr><td><img src="/static/map/Against Children.png" /></td><td><b>Against Children</b></td></tr>
+ <tr><td><img src="/static/map/Against Women.png" /></td><td><b>Against Women</b></td></tr>
+ <tr><td><img src="/static/map/Assault.png" /></td><td><b>Assault</b></td></tr>
+ <tr><td><img src="/static/map/Burglary.png" /></td><td><b>Burglary</b></td></tr>
+ </table></td>
+ <td><table>
+ <tr><th>&nbsp;&nbsp;&nbsp;Symbol&nbsp;&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type Of Crime</th> </tr>
+ <tr><td><img src="/static/map/Disturbing the Peace.png" /></td><td><b>Disturbing the Peace</b></td></tr>
+ <tr><td><img src="/static/map/Drug Violation.png" /></td><td><b>Drug Violation</b></td></tr>
+ <tr><td><img src="/static/map/Homicide.png" /></td><td><b>Homicide</b></td></tr>
+ <tr><td><img src="/static/map/Rape.png" /></td><td><b>Rape</b></td></tr>
+ </table></td>
+ <td><table>
+ <tr><th>&nbsp;&nbsp;&nbsp;Symbol&nbsp;&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type Of Crime</th> </tr>
+ <tr><td><img src="/static/map/Robbery.png" /></td><td><b>Robbery</b></td></tr>
+ <tr><td><img src="/static/map/Theft.png" /></td><td><b>Theft</b></td></tr>
+ <tr><td><img src="/static/map/Vandalism.png" /></td><td><b>Vandalism</b></td></tr>
+ <tr><td><img src="/static/map/Vehicle Theft.png" /></td><td><b>Vehicle Theft</b></td></tr>
+ </table ></td>
+ <td><table>
+ <tr><th>&nbsp;&nbsp;&nbsp;Symbol&nbsp;&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type Of Crime</th> </tr>
+ <tr><td><img src="/static/map/Miscellaneous.png" /></td><td><b>Miscellaneous</b></td></tr>
+ </table></td>
+ </tr></table>
 <script type="text/javascript">
     var locations = [
       {% if position %}
@@ -49,13 +76,21 @@ Crime Mapping Application | Gurugram Police
     ];
     var iconBase = '/static/map/';
 
+var bounds = new google.maps.LatLngBounds();
+        var station, latlng;
+        
+        for ( i = 0; i < locations.length; i++) {
+          station = locations[i];
+          latlng = new google.maps.LatLng(station[1], station[2]);
+          bounds.extend(latlng);
+          }
+
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom:14,
       center: new google.maps.LatLng(28.4551918808319,77.02973962457577),
       icon : iconBase + 'bomb.png',
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-
+map.fitBounds(bounds);
 
     var infowindow = new google.maps.InfoWindow();
 
@@ -78,6 +113,7 @@ Crime Mapping Application | Gurugram Police
   </script>
  </div>
             </div>
+            
 </div>
 
 </section>
@@ -96,7 +132,7 @@ Crime Mapping Application | Gurugram Police
 
 <!--/ FOOTER ENDS HERE-->
 
-</div> <!-- /WRAPPER ENDS HERE DESIGNED BY VIJAYAN PP-->
+</div> <!-- /WRAPPER ENDS HERE-->
 <script type='text/javascript' src="{% static 'home/js/jquery.js' %}"></script>
 <script type='text/javascript' src="{% static 'home/js/bootstrap.min.js' %}"></script>
 <script type='text/javascript' src="{% static 'home/js/scrollReveal.js' %}"></script>
