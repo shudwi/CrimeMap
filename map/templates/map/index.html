@@ -14,7 +14,7 @@ Crime Mapping Application | Gurugram Police
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
  <![endif]-->
-  <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+  <script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyCZgShoUto6soQnEzKFRzq7x2mOoHCSkQQ" type="text/javascript"></script>
 </head>
 <body>
 <div class="nav">
@@ -23,7 +23,7 @@ Crime Mapping Application | Gurugram Police
 		<li class="btMenu">
 		<a href="javascript:void(0)">MENU</a></li>
 		<li class="menuItem"><a href="/map">View Map</a></li>
-		<li class="menuItem"><a href="/admin">Login</a></li>		
+		<li class="menuItem"><a href="/admin">Admin</a></li>		
 		</ul>
 		</div>
   
@@ -35,44 +35,71 @@ Crime Mapping Application | Gurugram Police
                 <div class="col-md-12 yomer-text-center">
   <div id="map" style="height: 500px; width: 100%;">
 </div>
-                <table>
-                <tr><td><table>
- <tr><th>&nbsp;&nbsp;&nbsp;Symbol&nbsp;&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type Of Crime</th> </tr>
- <tr><td><img src="/static/map/Against Children.png" /></td><td><b>Against Children</b></td></tr>
- <tr><td><img src="/static/map/Against Women.png" /></td><td><b>Against Women</b></td></tr>
- <tr><td><img src="/static/map/Assault.png" /></td><td><b>Assault</b></td></tr>
- <tr><td><img src="/static/map/Burglary.png" /></td><td><b>Burglary</b></td></tr>
- </table></td>
- <td><table>
- <tr><th>&nbsp;&nbsp;&nbsp;Symbol&nbsp;&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type Of Crime</th> </tr>
- <tr><td><img src="/static/map/Disturbing the Peace.png" /></td><td><b>Disturbing the Peace</b></td></tr>
- <tr><td><img src="/static/map/Drug Violation.png" /></td><td><b>Drug Violation</b></td></tr>
- <tr><td><img src="/static/map/Homicide.png" /></td><td><b>Homicide</b></td></tr>
- <tr><td><img src="/static/map/Rape.png" /></td><td><b>Rape</b></td></tr>
- </table></td>
- <td><table>
- <tr><th>&nbsp;&nbsp;&nbsp;Symbol&nbsp;&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type Of Crime</th> </tr>
- <tr><td><img src="/static/map/Robbery.png" /></td><td><b>Robbery</b></td></tr>
- <tr><td><img src="/static/map/Theft.png" /></td><td><b>Theft</b></td></tr>
- <tr><td><img src="/static/map/Vandalism.png" /></td><td><b>Vandalism</b></td></tr>
- <tr><td><img src="/static/map/Vehicle Theft.png" /></td><td><b>Vehicle Theft</b></td></tr>
- </table ></td>
- <td><table>
- <tr><th>&nbsp;&nbsp;&nbsp;Symbol&nbsp;&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type Of Crime</th> </tr>
- <tr><td><img src="/static/map/Miscellaneous.png" /></td><td><b>Miscellaneous</b></td></tr>
- </table></td>
- </tr></table>
+<!--list of marker-->
+<!--Crime-->
+<table>
+	<tr><td><table>
+		<th><td align="left">Marker</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td>Type of Crime</td></th>
+      {% if position_crime %}
+    {% for lat in position_crime %}
+    
+    <tr><td><img src="{{lat.type_crime.img}}"/></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{lat.type_crime.name}}</td></tr>
+    {% endfor %}
+{% endif %} 
+			</table></td>
+	<!---Thana-->
+	<td><table>
+		<th><td>Marker</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td>Thana</td><th>
+{% if position_thana %}
+    {% for lat in position_thana %}
+    <tr><td><img src="{{lat.marker}}"/></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td>{{lat.name}}</td></tr>
+    {% endfor %}
+{% endif %}
+		</table></td>
+<!---Sadar-->
+<td><table>
+	<th><td>Marker</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td>Sadar</td></th>
+{% if position_sadar %}
+    {% for lat in position_sadar %}
+    <tr><td><img src="{{lat.marker}}"/></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td>{{lat.name}}</td></tr>
+    {% endfor %}
+{% endif %}
+	</table></td>
+	</tr></table>
+<!---Map-->
 <script type="text/javascript">
     var locations = [
-      {% if position %}
-    {% for lat in position %}
+	    <!---Crime--->
+      {% if position_crime %}
+    {% for lat in position_crime %}
     
-    
-    ['<b>Case No:</b> {{lat.case_number}}<br /><b>Date:</b> {{lat.crime_date}}<br/ ><b>Type:</b> {{lat.type_of_crime}}', {{ lat.position }},  {{lat.case_number}},'{{lat.type_of_crime}}.png'],
+    ['<b>Case No:</b> {{lat.case_no}}<br /><b>Date:</b> {{lat.crime_date}}<br/ ><b>Type:</b> {{lat.type_crime.name}}', {{ lat.position }},'{{lat.type_crime.img}}'],
     {% endfor %}
 {% else %}
     ['No record',28.4551918808319,77.02973962457577,0],
+{% endif %} 
+<!---Thana--->
+{% if position_thana %}
+    {% for lat in position_thana %}
+    
+    
+    ['<b>Thana Name:</b> {{lat.name}}', {{ lat.location }},'{{lat.marker}}'],
+    {% endfor %}
+{% else %}
+    ['No record',28.4251918802219,77.12973962457577,0],
 {% endif %}
+<!---Sadar--->
+{% if position_sadar %}
+    {% for lat in position_sadar %}
+    
+    
+    ['<b>Sadar Name:</b> {{lat.name}}', {{ lat.location }},'{{lat.marker}}'],
+    {% endfor %}
+{% else %}
+    ['No record',28.4251918802219,77.12973962457577,0],
+{% endif %}
+
+
     ];
     var iconBase = '/static/map/';
 
@@ -100,7 +127,7 @@ map.fitBounds(bounds);
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
         map: map,
-        icon: iconBase + locations[i][4]
+        icon: locations[i][3]
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
