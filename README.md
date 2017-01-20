@@ -1,5 +1,9 @@
 # CrimeMap
 Crime Mapping Application.
+
+# Installation
+`git clone https://github.com/shudwi/CrimeMap`
+
 # Requirements
 1 Django-geoposition
 
